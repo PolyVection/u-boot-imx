@@ -3,6 +3,9 @@ if TARGET_POLYCORE1
 config SYS_BOARD
 	default "polycore1"
 
+config SYS_VENDOR
+	default "polyvection"
+
 config SYS_SOC
 	default "mx6"
 

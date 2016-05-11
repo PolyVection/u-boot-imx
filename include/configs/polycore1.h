@@ -5,8 +5,8 @@
  *
  * SPDX-License-Identifier:	GPL-2.0+
  */
-#ifndef __MX6UL_14X14_EVK_CONFIG_H
-#define __MX6UL_14X14_EVK_CONFIG_H
+#ifndef __CONFIG_H
+#define __CONFIG_H
 
 
 #include <asm/arch/imx-regs.h>
@@ -14,7 +14,7 @@
 #include "mx6_common.h"
 #include <asm/imx-common/gpio.h>
 
-#define CONFIG_MX6
+/* #define CONFIG_MX6 */
 #define CONFIG_ROM_UNIFIED_SECTIONS
 #define CONFIG_SYS_GENERIC_BOARD
 #define CONFIG_DISPLAY_CPUINFO
