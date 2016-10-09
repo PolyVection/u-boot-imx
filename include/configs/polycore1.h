@@ -140,7 +140,7 @@
 #define CONFIG_POWER_PFUZE300
 #define CONFIG_POWER_PFUZE300_I2C_ADDR	0x08
 #else
-#define CONFIG_DEFAULT_FDT_FILE "imx6ul-polycore1.dtb"
+#define CONFIG_DEFAULT_FDT_FILE "imx6ul-coreamp1.dtb"
 #define PHYS_SDRAM_SIZE			SZ_512M
 #define CONFIG_BOOTARGS_CMA_SIZE   ""
 #endif
