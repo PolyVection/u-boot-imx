@@ -191,6 +191,13 @@ config TARGET_MX6ULL_9X9_EVK
 config TARGET_SECOMX6
 	bool "secomx6 boards"
 
+config TARGET_COREAMP1
+	bool "Support polycore1 board"
+	select MX6UL
+	select DM
+	select DM_THERMAL
+	select SUPPORT_SPL
+
 config TARGET_TBS2910
 	bool "TBS2910 Matrix ARM mini PC"
 
@@ -247,5 +254,6 @@ source "board/tqc/tqma6/Kconfig"
 source "board/udoo/Kconfig"
 source "board/wandboard/Kconfig"
 source "board/warp/Kconfig"
+source "board/polyvection/coreamp1/Kconfig"
 
 endif
