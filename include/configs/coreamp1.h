@@ -325,10 +325,12 @@
 #define CONFIG_USB_MAX_CONTROLLER_COUNT 2
 #endif
 
+#define CONFIG_SYS_I2C_EEPROM_ADDR 0x50
+
 #ifdef CONFIG_CMD_NET
 #define CONFIG_FEC_MXC
 #define CONFIG_MII
-#define CONFIG_FEC_ENET_DEV		1
+#define CONFIG_FEC_ENET_DEV		0
 
 #if (CONFIG_FEC_ENET_DEV == 0)
 #define IMX_FEC_BASE			ENET_BASE_ADDR
@@ -366,6 +368,8 @@
 #endif
 #endif*/
 
+
+
 #define CONFIG_MODULE_FUSE
 #define CONFIG_OF_SYSTEM_SETUP
 
@@ -374,3 +378,5 @@
 #endif
 
 #endif
+
+

@@ -91,6 +91,17 @@ DECLARE_GLOBAL_DATA_PTR;
 
 #ifdef CONFIG_SYS_I2C_MXC
 #define PC MUX_PAD_CTRL(I2C_PAD_CTRL)
+
+struct core_baseboard_id {
+	unsigned int  magic;
+	char name[8];
+	char version[4];
+	char name_long[16];
+	char serial[16];
+	char mac_addr[12];
+};
+
+
 /* I2C1 for PMIC and EEPROM */
 static struct i2c_pads_info i2c_pad_info1 = {
 	.scl = {
@@ -104,6 +115,35 @@ static struct i2c_pads_info i2c_pad_info1 = {
 		.gp = IMX_GPIO_NR(1, 29),
 	},
 };
+
+static int read_i2c_eeprom(struct core_baseboard_id *header){
+
+	/* Check if baseboard eeprom is available */
+	if (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR)) {
+		puts("Could not probe the EEPROM; something fundamentally "
+			"wrong on the I2C bus.\n");
+		return -ENODEV;
+	}
+
+	/* read the eeprom using i2c */
+	if (i2c_read(CONFIG_SYS_I2C_EEPROM_ADDR, 0, 2, (uchar *)header,
+		     sizeof(struct core_baseboard_id))) {
+		puts("Could not read the EEPROM; something fundamentally"
+			" wrong on the I2C bus.\n");
+		return -EIO;
+	}
+
+	if (header->magic != 0xfeca01c0) {
+		printf("Incorrect magic number (0x%x) in EEPROM\n", header->magic);
+		return -EINVAL;
+                }
+
+	printf("SERIAL: %s\n", header->serial);
+	printf("MAC: %s\n", header->mac_addr);
+
+	return 0;
+
+}
 
 #ifdef CONFIG_POWER
 #define I2C_PMIC       0
@@ -583,6 +623,10 @@ int board_init(void)
 #ifdef CONFIG_SYS_I2C_MXC
 	setup_i2c(0, CONFIG_SYS_I2C_SPEED, 0x7f, &i2c_pad_info1);
 #endif
+
+struct core_baseboard_id header;
+
+	read_i2c_eeprom(&header);
 
 #ifdef	CONFIG_FEC_MXC
 	setup_fec(CONFIG_FEC_ENET_DEV);
