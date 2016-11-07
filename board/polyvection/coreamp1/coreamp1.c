@@ -92,6 +92,29 @@ DECLARE_GLOBAL_DATA_PTR;
 #ifdef CONFIG_SYS_I2C_MXC
 #define PC MUX_PAD_CTRL(I2C_PAD_CTRL)
 
+#define AUD_CLK_EN IMX_GPIO_NR(5, 9)
+#define AUD_MCLK1_SW IMX_GPIO_NR(5, 5)
+#define AUD_MCLK2_SW IMX_GPIO_NR(5, 4)
+#define AUD_MCLK1_EN IMX_GPIO_NR(5, 8)
+#define AUD_MCLK2_EN IMX_GPIO_NR(5, 1)
+
+static iomux_v3_cfg_t const aud_pads[] = {	
+	MX6_PAD_SNVS_TAMPER1__GPIO5_IO01 | MUX_PAD_CTRL(NO_PAD_CTRL),
+	MX6_PAD_SNVS_TAMPER4__GPIO5_IO04 | MUX_PAD_CTRL(NO_PAD_CTRL),
+	MX6_PAD_SNVS_TAMPER5__GPIO5_IO05 | MUX_PAD_CTRL(NO_PAD_CTRL),
+	MX6_PAD_SNVS_TAMPER8__GPIO5_IO08 | MUX_PAD_CTRL(NO_PAD_CTRL),
+	MX6_PAD_SNVS_TAMPER9__GPIO5_IO09 | MUX_PAD_CTRL(NO_PAD_CTRL),
+};
+
+void audclk_init(void){
+	gpio_direction_output(AUD_CLK_EN, 0);
+	gpio_direction_output(AUD_MCLK1_SW, 1);
+	gpio_direction_output(AUD_MCLK2_SW, 1);
+	gpio_direction_output(AUD_MCLK1_EN, 0);
+	gpio_direction_output(AUD_MCLK2_EN, 0);
+
+};
+
 struct core_baseboard_id {
 	unsigned int  magic;
 	char name[8];
@@ -619,6 +642,8 @@ int board_init(void)
 	/* Address of boot parameters */
 	gd->bd->bi_boot_params = PHYS_SDRAM + 0x100;
 
+	imx_iomux_v3_setup_multiple_pads(aud_pads, ARRAY_SIZE(aud_pads));
+	audclk_init();
 
 #ifdef CONFIG_SYS_I2C_MXC
 	setup_i2c(0, CONFIG_SYS_I2C_SPEED, 0x7f, &i2c_pad_info1);
