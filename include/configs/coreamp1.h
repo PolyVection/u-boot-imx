@@ -127,7 +127,7 @@
            	"if run loadimage; then " \
 	   		"run mmcboot; " \
 		"else " \
-			"echo No kernel found - switching bank!" \
+			"echo No kernel found - switching bank!; " \
 			"run switch; " \
 			"if run loadimage; then " \
 	   			"run mmcboot; " \
