@@ -103,8 +103,13 @@
 	"initrd_high=0xffffffff\0" \
 	"mmcautodetect=yes\0" \
 	"swbank=2\0" \
+	"switch= if test ${swbank} -eq 1; then " \
+			"setenv swbank 2; saveenv; " \
+		"else " \
+			"setenv swbank 1; saveenv; " \
+		"fi;\0" \
 	"mmcargs=setenv bootargs console=ttymxc0,115200 " \
-		"root=/dev/mmcblk1p2 rootwait rw\0" \
+		"root=/dev/mmcblk1p${swbank} rootwait rw\0" \
 	"loadimage=ext4load mmc 1:${swbank} 0x80800000 /boot/zImage\0" \
 	"loadfdt=ext4load mmc 1:${swbank} 0x83000000 /boot/imx6ul-coreamp1.dtb\0" \
 	"mmcboot=echo Booting from swbank=${swbank} ...; " \
@@ -121,6 +126,12 @@
 	   "if mmc rescan; then " \
            	"if run loadimage; then " \
 	   		"run mmcboot; " \
+		"else " \
+			"echo No kernel found - switching bank!" \
+			"run switch; " \
+			"if run loadimage; then " \
+	   			"run mmcboot; " \
+			"fi; " \
            	"fi; " \
 	   "fi;"
 
