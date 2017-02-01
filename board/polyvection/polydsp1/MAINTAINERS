@@ -1,0 +1,6 @@
+CoreAMP1 BOARD
+M:	Philip Voigt <info@polyvection.com>
+S:	Maintained
+F:	board/polyvection/coreamp1/
+F:	include/configs/coreamp1.h
+F:	configs/coreamp1_defconfig
