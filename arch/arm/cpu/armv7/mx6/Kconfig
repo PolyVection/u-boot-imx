@@ -204,6 +204,12 @@ config TARGET_POLYDSP1
 	select DM
 	select DM_THERMAL
 
+config TARGET_VOLTASTREAM0
+	bool "Support for VoltaStream ZERO board"
+	select MX6ULL
+	select DM
+	select DM_THERMAL
+
 config TARGET_TBS2910
 	bool "TBS2910 Matrix ARM mini PC"
 
@@ -262,5 +268,6 @@ source "board/wandboard/Kconfig"
 source "board/warp/Kconfig"
 source "board/polyvection/coreamp1/Kconfig"
 source "board/polyvection/polydsp1/Kconfig"
+source "board/polyvection/voltastream0/Kconfig"
 
 endif

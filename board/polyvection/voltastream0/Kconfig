@@ -1,0 +1,16 @@
+if TARGET_VOLTASTREAM0
+
+config SYS_BOARD
+	default "voltastream0"
+
+config SYS_SOC
+	default "mx6"
+
+config SYS_CONFIG_NAME
+	default "voltastream0"
+
+config SYS_VENDOR
+	default "polyvection"
+
+
+endif
